@@ -9,12 +9,25 @@
 <body>
     <div id="app">
         <h6>{{name}}</h6>
-        <p :style="{
+        <!-- <p :style="{
             color: work? 'green': 'red'
         }">
             {{work? '工作中': '休息'}}
+        </p> -->
+        {{work}}
+        <p :class="{
+            'green': work,
+            'red': !work
+        }">
+            {{work? '工作中': '休息'}}
         </p>
-
+        <!-- <p :class="['red', 'green']">
+            {{work? '工作中': '休息'}}
+        </p> -->
+        <p :class="[work? 'green': 'red']">
+            {{work? '工作中': '休息'}}
+        </p>
+        <a :href="link" target="_blank">google</a>
         <img :src="img" :alt="name" />
         <div class="imgBox"  :style="{
             'background-image': 'url(1.gif)'
@@ -38,7 +51,8 @@
                         complete: true
                     },
                     status: null,//null
-                    img: '/1.gif'
+                    img: '/1.gif',
+                    link: 'https://google.com'
                 }
             }
         }).mount("#app")
@@ -55,5 +69,11 @@
     .imgBox{
         height: 5rem;
         background-size: contain;
+    }
+    .red{
+        color: red;
+    }
+    .green{
+        color: green;
     }
 </style>
