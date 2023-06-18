@@ -25,8 +25,14 @@
         <!-- 陣列數值, 陣列index -->
         <div v-for="(itemValue, itemIndex) in animal" :key="itemIndex">
             <!-- {{ itemValue["name"] }} -->
-            <div>
+            <div 
+                :style="{
+                    'background-color': itemValue.color
+                }"
+                :class="itemValue.class"
+            >
                 {{ itemValue.name }}
+                <!-- {{ itemValue.class }} -->
             </div>
         </div>
     </div>
@@ -45,11 +51,13 @@
                     animal: [
                         {
                             name: '🐑',
-                            color: 'red'
+                            color: 'red',
+                            class: 'big border'
                         },
                         {
                             name: '🐮',
-                            color: 'yellow'
+                            color: 'yellow',
+                            class: 'small'
                         }
                     ]
                 }
@@ -57,4 +65,15 @@
         }).mount('#app')
     </script>
 </body>
+<style>
+    .big{
+        font-size: 2rem;
+    }
+    .small{
+        font-size: 1rem;
+    }
+    .border{
+        border: .5rem solid #111
+    }
+</style>
 </html>
