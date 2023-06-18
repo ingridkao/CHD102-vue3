@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{ test }}
+        <div class="container">
+            <transition>
+                <div v-show="test === 1" class="box">1</div>
+                <div v-show="test === 2" class="box">2</div>
+            </transition>
+        </div>
+        <hr>
+        <div class="container">
+            <transition>
+                <div v-if="test === 1" class="box">1</div>
+                <div v-else-if="test === 2" class="box">2</div>
+                <div v-else-if="test === 3" class="box">3</div>
+                <div v-else class="box">預設</div>
+            </transition>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    test: 1
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
+<style>
+    .container{
+        position: relative;
+        width: 5rem;
+        height: 5rem;
+    }
+    .box{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: #222;
+        color: #fff;
+        border-radius: 1rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: .5rem;
+    }
+    .v-enter-active,
+    .v-leave-active {
+        transition: opacity 0.5s ease;
+    }
+
+    .v-enter-from,
+    .v-leave-to {
+        opacity: 0;
+    }
+    .v-enter-to,
+    .v-leave-from {
+        opacity: 1;
+    }
+</style>
