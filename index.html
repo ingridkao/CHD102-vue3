@@ -7,6 +7,53 @@
     <title>CHD102-vue3</title>
 </head>
 <body>
-    <a href="/00.html">00</a>
+    <div id="app">
+        <h6>{{name}}</h6>
+        <p :style="{
+            color: work? 'green': 'red'
+        }">
+            {{work? '工作中': '休息'}}
+        </p>
+
+        <img :src="img" :alt="name" />
+        <div class="imgBox"  :style="{
+            'background-image': 'url(1.gif)'
+        }"></div>
+        <div class="imgBox" :style="{
+            backgroundImage: 'url(1.gif)'
+        }"></div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    name: "🐢", //string
+                    work: true, //boolean
+                    count: 1000,   //number
+                    skill: ["HTML", "CSS", "Js"], //Array
+                    toDolist: { //object
+                        test: "",
+                        complete: true
+                    },
+                    status: null,//null
+                    img: '/1.gif'
+                }
+            }
+        }).mount("#app")
+
+        const array = []
+        const object = {}
+    </script>
 </body>
 </html>
+<style>
+    img{
+        height: 5rem;
+    }
+    .imgBox{
+        height: 5rem;
+        background-size: contain;
+    }
+</style>
