@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- v-for="變數 in 物件/陣列" -->
+        <!-- <ul>
+            <li v-for="item in 5">{{item}}</li>
+        </ul> -->
+        <!-- 陣列數值, 陣列index -->
+        <div v-for="(itemValue, itemIndex) in skill" :key="itemIndex">
+            {{itemIndex + 1}}.{{ itemValue }}
+        </div>
+        <hr>
+        <!-- 物件數值, 物件key, 物件index -->
+        <div v-for="(statusValue, statusKey, statusindex) in status" :key="statusKey">
+            {{statusindex + 1}}.{{statusKey}}:{{ statusValue }}
+        </div>
+        <hr>
+        <!-- 陣列數值, 陣列index -->
+        <div v-for="(itemValue, itemIndex) in animal" :key="itemIndex">
+            <!-- {{ itemValue["name"] }} -->
+            <div>
+                {{ itemValue.name }}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    skill: ["HTML", "CSS", "Js"],
+                    status: {
+                        head: 'A',
+                        body: 'B',
+                        foot: 'C'
+                    },
+                    animal: [
+                        {
+                            name: '🐑',
+                            color: 'red'
+                        },
+                        {
+                            name: '🐮',
+                            color: 'yellow'
+                        }
+                    ]
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
