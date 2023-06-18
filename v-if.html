@@ -8,14 +8,17 @@
 </head>
 <body>
     <div id="app">
-        {{ test }}
+        v-show
         <div class="container">
             <transition>
-                <div v-show="test === 1" class="box">1</div>
-                <div v-show="test === 2" class="box">2</div>
+                <div v-show="test == 1" class="box">1</div>
+            </transition>
+            <transition>
+                <div v-show="test == 2" class="box">2</div>
             </transition>
         </div>
         <hr>
+        v-if/v-else-if/v-else 
         <div class="container">
             <transition>
                 <div v-if="test === 1" class="box">1</div>
