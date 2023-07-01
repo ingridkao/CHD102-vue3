@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <h6>庫存</h6>
+            <!-- 🧀️{{cheese}} -->
+            🧀️<input type="number" v-model="cheese"><br>
+            <!-- 🥩{{beef}} -->
+            🥩<input type="number" v-model="beef"><br>
+            <p>🍔{{ ham}}</p>
+            <!-- <p>{{ ham === 0? '關店': 'Open' }}</p> -->
+            <p :style="{color: color, fontSize: size}">{{ errorMsg }}</p>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    cheese: 1,
+                    beef: 30,
+                }
+            },
+            computed: {
+                ham(){
+                    // 🍔=🥩*2+🧀️*1
+                    const basicCount = this.beef/2
+                    if(this.cheese > basicCount){
+                        return basicCount
+                    }else{
+                        return this.cheese
+                    }
+                },
+                errorMsg(){
+                    return this.ham === 0? '關店': 'Open'
+                },
+                color(){
+                    // return `#${this.ham}${this.ham}${this.ham*2}`
+                    return `rgba(${this.beef}, ${this.cheese}, ${this.ham}, 0.${this.ham})`
+                },
+                size(){
+                    console.log(this)
+                    return `${this.beef}px`
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
+<style>
+</style>
