@@ -24,14 +24,16 @@
         <button @click="resetInput">X</button>
         <button @click="add">新增</button>
         <button @click="reset">清空興趣</button>
+        <button @click="back">預設</button>
         
     </div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
+        const interestDefault = ['聽', '聽音樂', '不要在家裡']
         Vue.createApp({
             data() {
                 return {
-                    interest: ['聽', '聽音樂', '不要在家裡'],
+                    interest: [...interestDefault],
                     interestText: ''
                 }
             },
@@ -58,6 +60,9 @@
                 remove(itemIndex, item){
                     // console.log(item);
                     this.interest.splice(itemIndex,1)
+                },
+                back(){
+                    this.interest = [...interestDefault]
                 }
             }
         }).mount('#app')
