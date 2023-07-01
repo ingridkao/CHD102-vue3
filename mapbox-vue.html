@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+
+</head>
+<body>
+    <div id="app">
+        <h6>{{title}}</h6>
+        <div id="mapboxContainer"></div>
+    </div>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    title: '地圖',
+                    map: null
+                }
+            },
+            //生命週期 DOM
+            mounted() {
+                mapboxgl.accessToken = '需要換成自己的mapboxtoken'
+                this.map = new mapboxgl.Map({
+                    container: 'mapboxContainer',
+                    style: 'mapbox://styles/mapbox/streets-v12',
+                    center: [121, 23.25],
+                    zoom: 5.5,
+                    projection: 'naturalEarth' // starting projection
+                })
+            },
+        }).mount('#app')
+    </script>
+</body>
+</html>
+<style>
+    #mapboxContainer { 
+        background-color: #ddd;
+        width: 100%;
+        height: 15rem;
+    }
+</style>
