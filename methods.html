@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- {{interest}} -->
+        興趣數量：{{interestCount}}
+        <ul>
+            <li v-for="(item, index) in interest" :key="index">
+                {{index+1}}. {{item}}
+
+                <!-- <p>{{ item }}</p> -->
+                <!-- <input type="text" v-model="item"> -->
+
+                <button @click="remove(index, item)">X</button>
+            </li>
+        </ul>
+        <input type="text" v-model="interestText">
+        <button @click="resetInput">X</button>
+        <button @click="add">新增</button>
+        <button @click="reset">清空興趣</button>
+        
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    interest: ['聽', '聽音樂', '不要在家裡'],
+                    interestText: ''
+                }
+            },
+            computed: {
+                interestCount(){
+                    return this.interest.length
+                }
+            },
+            methods: {
+                add(){
+                    if(this.interestText === '') {
+                        alert('X')
+                    }else{
+                        this.interest.push(this.interestText)
+                        this.resetInput()
+                    }
+                },
+                reset(){
+                    this.interest = []
+                },
+                resetInput(){
+                    this.interestText = ''
+                },
+                remove(itemIndex, item){
+                    // console.log(item);
+                    this.interest.splice(itemIndex,1)
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
+<style>
+</style>
