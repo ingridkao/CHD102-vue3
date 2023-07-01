@@ -8,6 +8,7 @@
 </head>
 <body>
     <div id="app">
+        {{now}}
         興趣數量：{{interestCount}}
         <ul>
             <li v-for="(item, index) in interest" :key="index">
@@ -55,15 +56,15 @@
                 },
                 remove(itemIndex, item){
                     this.interest.splice(itemIndex,1)
-                }
-            },
-            watch: {
+                },
                 resetInterval(){
                     if(this.timer){
                         clearInterval(this.timer)
                     }
-                },
-                addDisable(newVal){
+                }
+            },
+            watch: {
+                addDisable(newVal, oldVal){
                     if(newVal){
                         this.resetInterval()
                         this.timer = setInterval(() => {
@@ -85,7 +86,7 @@
                 //     deep: true
                 // },
                 interestCount(newVal){
-                    if(newVal > 5)alert('太多囉')
+                    if(this.interestCount > 5)alert('太多囉')
                 },
             }
         }).mount('#app')
