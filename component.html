@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>超復古配色按鈕</title>
+</head>
+<body>
+    <div id="app">
+        <btn-component :name="'新增'" :color="'#3f51b5'"></btn-component>
+        <btn-component :name="'修改'" :color="'#3fb59b'"></btn-component>
+        <btn-component :name="'刪除'" :color="'#a33fb5'"></btn-component>
+        <btn-component :name="'檢視'" :color="'#999'"></btn-component>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const App = Vue.createApp({})
+
+        //必須放在mount以前
+        App.component('btn-component', {
+            props: ['name', 'color'],
+            template: `
+                <button class="btn" :style="{
+                    backgroundColor: color
+                }">
+                    {{name}}
+                </button>
+            `,
+        })
+
+        // 可以註冊多個組件
+        // App.component('user-component', {})
+
+        App.mount('#app')
+    </script>
+</body>
+</html>
+<style>
+    .btn{
+        display: block;
+        color: wheat;
+        margin: .25rem;
+    }
+</style>
