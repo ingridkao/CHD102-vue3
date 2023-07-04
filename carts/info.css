@@ -1,0 +1,79 @@
+.wrapper aside{
+    flex-basis: 15rem;
+    padding-top: 2rem;
+    margin-left: 1rem;
+}
+
+input{
+    width: 5rem;
+    height: 1.5rem;
+    text-align: center;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 90%;
+}
+
+.info.checkout{
+    justify-content: flex-end;
+}
+
+.info_desc{
+    color: #a28773;
+    background-color: #e7ddc7;
+    font-size: 0.8rem;
+    height: 8em;
+    padding: 0.25rem;
+}
+
+.info_label{
+    min-width: 2.5rem;
+    font-size: 0.9rem;
+    color: #81614f;
+}
+
+.row{
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    margin: .25rem 0;
+}
+
+.row .price{
+    display: inline-block;
+    width: 8rem;
+    background-color: #efefef;
+    padding: 0 0.25rem;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+/* http://apps.eky.hk/css-triangle-generator/zh-hant */
+.arrow{
+    background-color: transparent;
+    margin: 0 .5rem;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+.arrow.left{
+    border-width: 9px 15.6px 9px 0;
+    border-color: transparent #d99838 transparent transparent;  
+}
+.arrow.right{
+    border-width: 9px 0 9px 15.6px;
+    border-color: transparent transparent transparent #d99838;
+}
+
+.commit{
+    box-shadow:inset 0 -1.5rem 0.75rem -1rem #90714f;
+    background-color: #d7a877;
+    padding: 0.25rem;
+    width: 100%;
+    font-weight: 900;
+    font-size: 1rem;
+    color: #774431;
+}
