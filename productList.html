@@ -26,9 +26,16 @@
                     </div>
                 </div>
                 <div class="commom tabsContent">
-                    <div v-if="tabActive == 1">        
+                    <div v-if="tabActive == 1">   
+                        <input 
+                            type="text" 
+                            v-model="search"
+                            @input="searchProduct"
+                        />
+                        <button @click="resetProduct">X</button>
+                        <button @click="search = '槍'">#槍</button>
                         <div 
-                            v-for="(item, index) in product" 
+                            v-for="(item, index) in productList" 
                             :key="item.id" 
                             class="products"
                             @click="updateTarget(item)"
@@ -86,7 +93,7 @@
             <aside>
                 <div class="info" v-if="tabActive == 1">
                     <div>
-                        <div v-if="target && target.id" class="commom info_desc " >
+                        <div v-if="target && target.id" class="commom info_desc">
                             {{target.desc}}
                         </div>
                     </div>
@@ -121,8 +128,9 @@
                     //將購物車清單先放在外js -> carts/cartList.js
                     // cartList,
                     cartList: cartList,
-                    product: products,
-                    target: {}
+                    productList: products,
+                    target: {},
+                    search: ''
                 }
             },
             computed: {
@@ -142,6 +150,27 @@
                 }
             },
             methods: {
+                searchProduct(){
+                    // console.log(this.search);
+                    // const res1 = products.filter((item) => {
+                    //     return item.name.includes('七')
+                    // })
+            
+                    // 篩選結果回傳給product
+                    this.productList = this.productList.filter((item) => {
+                        // item.name完全比對search
+                        // return item.name === this.search
+                        // item.name模糊比對search
+                        return item.name.includes(this.search)
+                        // 找出庫存>search
+                        // return item.stock > Math.round(this.search)
+                    })
+                    // console.log(res)
+                },
+                resetProduct(){
+                    this.search = ''
+                    this.productList = products
+                },
                 updateTarget(item){
                     this.target = item
                 },
