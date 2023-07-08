@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shopping cart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="carts/index.css">
+    <link rel="stylesheet" href="carts/products.css">
+    <link rel="stylesheet" href="carts/info.css">
+</head>
+<body>
+    <div id="app">
+        <div class="commom wrapper">
+            <main class="tabs">
+                <div class="tabsList">
+                    <div class="commom tabsItem"
+                        v-for="(item, key) in tabItems"
+                        :class="{active: key == tabActive}"
+                        @click="updateTab(key)"
+                    >
+                        {{item}}
+                    </div>
+                </div>
+                <div class="commom tabsContent">
+                    <div v-if="tabActive == 1" class="tabsWrapper">
+                        <div 
+                            v-for="item in products" 
+                            :key="item.id" 
+                            class="products"
+                            @click="updateTarget(item)"
+                        >
+                            <img :src="`carts/img/${item.id}.png`" :alt="item.name">   
+                            <div class="commom box">
+                                <div class="box-info">
+                                    <h6>
+                                        {{item.name}}
+                                    </h6>
+                                    <p>
+                                        {{item.stock}}
+                                    </p>
+                                </div>
+                                <div class="box-price">
+                                    <h6>
+                                        💰{{parseNumerDisplay(item.price)}}
+                                    </h6>
+                                    <div v-if="shopping && shopping.id == item.id" class="select"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <aside>
+                <div class="info" v-if="tabActive == 1">
+                    <div>
+                        <div class="commom info_desc">
+                            {{shopping.desc}}
+                        </div>
+                        <div class="row">
+                            <h6 class="info_label">數量</h6>
+                            <button class="arrow left" @click="reduceCart(item)"></button>
+                            <input type="number" v-model="shopping.count" class="commom"/>
+                            <button class="arrow right" @click="addCart(item)"></button>
+                        </div>
+                        <div class="row">
+                            <h6 class="info_label">花費</h6>
+                            <div>💰<span class="commom price">{{parsePrice}}</span></div>
+                        </div>
+                        <div class="row">
+                            <h6 class="info_label">擁有</h6>
+                            <div>💰<span class="commom price">{{parseMoney}}</span></div>
+                        </div>
+                    </div>
+                    <button class="commom commit">放入購物車</button>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script src="vue.global.js"></script>
+    <script src="carts/data.js"></script>
+    <script>
+        const App = Vue.createApp({
+            data() {
+                return {
+                    tabActive: 1,
+                    tabItems: {
+                        1: '買入',
+                        2: '購物車'
+                    },
+                    shopping: null,
+                    money: 11281,
+                    products: products,
+                    cartList: []
+                }
+            },
+            created() {
+                //預選第一個商品
+                this.updateTarget(this.products[0])
+                fetch('https://api.json-generator.com/templates/mhWI1uMwzQyI/data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "access_token": "k15j2pu32kgouxa7rn76kp4x6fexfrwid7yjpwqh"
+                    })
+                })
+                .then( (response)=> {
+                    return response.json()
+                })
+                .then( (myJson)=> {
+                    console.log(myJson)
+                })
+            },
+            computed: {
+                parseMoney(){
+                    return this.parseNumerDisplay(this.money)
+                },
+                parsePrice(){
+                    const {count, price} = this.shopping
+                    return this.parseNumerDisplay(count* price)
+                }
+            },
+            methods: {
+                //切換tab
+                updateTab (index) {
+                    this.tabActive = index
+                },
+                updateTarget (item) {
+                    //將商品資訊取出來並新增一個數量(key為count)
+                    this.shopping = {
+                        ...item,
+                        count: 0
+                    }
+                },
+                parseNumerDisplay(num){
+                    const main = Math.round(num/1000)
+                    const sub = num%1000
+                    if(main> 0)return `${main}兩${sub}文`
+                    return `${sub}文`
+                },
+                reduceCart(item){
+                    //禁止購物車數量<0
+                    if(this.shopping.count == 0) return
+
+                    this.shopping.count -= 1
+                    const {count, price} = this.shopping
+                    this.money -= (count*price)
+                },
+                addCart(item){
+                    //禁止購物車數量>商品庫存數量
+                    if(this.shopping.count === this.shopping.stock) return
+
+                    this.shopping.count += 1
+                    const {count, price} = this.shopping
+                    this.money += (count*price)
+                }
+            }
+        })
+
+        App.mount('#app')
+    </script>
+</body>
+</html>
